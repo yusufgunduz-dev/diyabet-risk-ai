@@ -1,0 +1,196 @@
+{
+  "shap_global": [
+    {
+      "ozellik": "GenHlth",
+      "etiket": "Genel sağlık algısı",
+      "ortalama_shap": 0.5194005966186523
+    },
+    {
+      "ozellik": "HighBP",
+      "etiket": "Yüksek tansiyon",
+      "ortalama_shap": 0.42784178256988525
+    },
+    {
+      "ozellik": "BMI",
+      "etiket": "Vücut kitle indeksi",
+      "ortalama_shap": 0.3928051292896271
+    },
+    {
+      "ozellik": "Age",
+      "etiket": "Yaş grubu",
+      "ortalama_shap": 0.3912692070007324
+    },
+    {
+      "ozellik": "HighChol",
+      "etiket": "Yüksek kolesterol",
+      "ortalama_shap": 0.2807999551296234
+    },
+    {
+      "ozellik": "Sex",
+      "etiket": "Cinsiyet",
+      "ortalama_shap": 0.0826578438282013
+    },
+    {
+      "ozellik": "DiffWalk",
+      "etiket": "Yürüme güçlüğü",
+      "ortalama_shap": 0.06789879500865936
+    },
+    {
+      "ozellik": "CholCheck",
+      "etiket": "Kolesterol kontrolü",
+      "ortalama_shap": 0.06401745229959488
+    },
+    {
+      "ozellik": "MentHlth",
+      "etiket": "Ruhsal sağlık (gün)",
+      "ortalama_shap": 0.06391666829586029
+    },
+    {
+      "ozellik": "HvyAlcoholConsump",
+      "etiket": "Yoğun alkol",
+      "ortalama_shap": 0.0637950673699379
+    },
+    {
+      "ozellik": "HeartDiseaseorAttack",
+      "etiket": "Kalp hastalığı",
+      "ortalama_shap": 0.06256290525197983
+    },
+    {
+      "ozellik": "Stroke",
+      "etiket": "İnme geçmişi",
+      "ortalama_shap": 0.016879912465810776
+    },
+    {
+      "ozellik": "PhysHlth",
+      "etiket": "Fiziksel sağlık (gün)",
+      "ortalama_shap": 0.00810029823333025
+    },
+    {
+      "ozellik": "PhysActivity",
+      "etiket": "Fiziksel aktivite",
+      "ortalama_shap": 0.005510312505066395
+    },
+    {
+      "ozellik": "Smoker",
+      "etiket": "Sigara geçmişi",
+      "ortalama_shap": 0.002118128351867199
+    },
+    {
+      "ozellik": "Veggies",
+      "etiket": "Sebze tüketimi",
+      "ortalama_shap": 0.0012688733404502273
+    },
+    {
+      "ozellik": "Fruits",
+      "etiket": "Meyve tüketimi",
+      "ortalama_shap": 0.0008294531726278365
+    }
+  ],
+  "kumeleme": {
+    "k_secimi": {
+      "k": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "inertia": [
+        300157.0902440418,
+        280260.2717880973,
+        262652.6824696585,
+        246256.01314308547,
+        236500.64545177147,
+        223482.45301199346,
+        206701.4974337619
+      ],
+      "siluet": [
+        0.19914476500959033,
+        0.09200011191922251,
+        0.10508278559860029,
+        0.11103262957318562,
+        0.11250161210014446,
+        0.11732434644348122,
+        0.13161107390587692
+      ],
+      "secilen_k": 4
+    },
+    "siluet_karsilastirma": {
+      "kmeans_siluet": 0.10508278559860029,
+      "hiyerarsik_siluet": 0.1940881789189385
+    },
+    "profiller": [
+      {
+        "kume": 1,
+        "ad": "Genç, sağlığı iyi",
+        "kisi_orani": 0.42905,
+        "diyabet_orani": 0.04451695606572661,
+        "ortalama": {
+          "BMI": 27.070621139727304,
+          "Age": 6.520918307889524,
+          "GenHlth": 2.098822981004545,
+          "HighBP": 0.049178417433865515,
+          "HighChol": 0.23062580118867265,
+          "PhysActivity": 0.8241463698869596,
+          "DiffWalk": 0.03134832770073418,
+          "HeartDiseaseorAttack": 0.009089849667870877
+        }
+      },
+      {
+        "kume": 0,
+        "ad": "Ortalama profil",
+        "kisi_orani": 0.06045,
+        "diyabet_orani": 0.04880066170388751,
+        "ortalama": {
+          "BMI": 27.058726220016542,
+          "Age": 7.5616211745244,
+          "GenHlth": 2.336641852770885,
+          "HighBP": 0.4251447477253929,
+          "HighChol": 0.391232423490488,
+          "PhysActivity": 0.7866004962779156,
+          "DiffWalk": 0.08354011579818031,
+          "HeartDiseaseorAttack": 0.050454921422663356
+        }
+      },
+      {
+        "kume": 2,
+        "ad": "İleri yaş, tansiyonlu",
+        "kisi_orani": 0.351,
+        "diyabet_orani": 0.2123931623931624,
+        "ortalama": {
+          "BMI": 29.576068376068378,
+          "Age": 9.646296296296295,
+          "GenHlth": 2.603133903133903,
+          "HighBP": 0.8686609686609686,
+          "HighChol": 0.6405982905982905,
+          "PhysActivity": 0.7371794871794872,
+          "DiffWalk": 0.10612535612535613,
+          "HeartDiseaseorAttack": 0.14245014245014245
+        }
+      },
+      {
+        "kume": 3,
+        "ad": "Sağlığı kötü, tansiyonlu, kilolu",
+        "kisi_orani": 0.1595,
+        "diyabet_orani": 0.3394984326018809,
+        "ortalama": {
+          "BMI": 31.303761755485894,
+          "Age": 9.172413793103448,
+          "GenHlth": 3.9780564263322886,
+          "HighBP": 0.6780564263322884,
+          "HighChol": 0.6216300940438871,
+          "PhysActivity": 0.4517241379310345,
+          "DiffWalk": 0.8084639498432602,
+          "HeartDiseaseorAttack": 0.284012539184953
+        }
+      }
+    ],
+    "pca_ilk2_varyans": [
+      0.17116218325100618,
+      0.09056072039734311
+    ],
+    "pca_90_icin_bilesen": 14
+  }
+}

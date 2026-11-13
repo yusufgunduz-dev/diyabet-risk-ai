@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Siz de deneyin · Diyabet Risk Analizi</title>
+  <link rel="stylesheet" href="styles.css?v=6">
+  <style>
+    .qr-sayfa { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s7); align-items: center; max-width: 1240px; margin: 0 auto; padding: var(--s6) var(--s5); }
+    .qr-sayfa h1 { font-size: 56px; line-height: 1.05; margin: 0 0 var(--s4); letter-spacing: -0.02em; }
+    .qr-sayfa p { font-size: var(--fs-xl); color: var(--metin-2); margin: 0 0 var(--s5); max-width: 560px; }
+    .qr-kutu { background: var(--n-0); border: 1px solid var(--cizgi); border-radius: var(--r); padding: var(--s4); }
+    .qr-kutu img, .qr-kutu canvas { display: block; width: min(52vh, 460px) !important; height: auto !important; }
+    .baglanti { font-family: var(--font-mono); font-size: var(--fs-lg); color: var(--vurgu); word-break: break-all; }
+    .adimlar-qr { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; gap: var(--s3); font-size: var(--fs-lg); }
+    .adimlar-qr li::before { content: counter(list-item, decimal-leading-zero); color: var(--metin-3); font-family: var(--font-mono); margin-right: var(--s3); }
+    @media (max-width: 900px) { .qr-sayfa { grid-template-columns: 1fr; } .qr-sayfa h1 { font-size: 36px; } }
+  </style>
+</head>
+<body>
+  <main class="qr-sayfa">
+    <div>
+      <span class="ust-etiket">Canlı demo</span>
+      <h1>Siz de deneyin</h1>
+      <p>Telefonunuzun kamerasıyla QR kodu okutun ve kendi diyabet riskinizi hesaplayın.</p>
+      <ol class="adimlar-qr">
+        <li>Kamerayı QR koda tutun</li>
+        <li>Soruları cevaplayın</li>
+        <li>“Karşılaştır”a dokunun: model, FINDRISC ve ADA sonucunuzu görün</li>
+      </ol>
+      <div class="baglanti" id="baglanti"></div>
+      <p class="yardim" id="mod" style="font-size: var(--fs-sm); margin-top: var(--s3)"></p>
+    </div>
+    <div class="qr-kutu" id="qr-kutu"></div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Yerel demo (sunum/demo_qr.py) baglanti.txt yazar; Netlify'da bu dosya yoktur ve sitenin kendi adresi kullanılır.
+    const kutu = document.getElementById("qr-kutu");
+    const yaz = (adres, aciklama) => {
+      document.getElementById("baglanti").textContent = adres;
+      document.getElementById("mod").textContent = aciklama;
+    };
+    fetch("demo/baglanti.txt", { cache: "no-store" })
+      .then((r) => (r.ok ? r.text() : Promise.reject()))
+      .then((t) => {
+        const [adres, mod] = t.trim().split("\n");
+        kutu.innerHTML = '<img src="demo/qr.png" alt="Uygulamanın bağlantısını içeren QR kod">';
+        yaz(adres, mod === "internet" ? "İnternet üzerinden erişilebilir. Bu bağlantı sunum bitince kapanır."
+                                      : "Telefonunuz bu bilgisayarla aynı Wi-Fi ağında olmalı.");
+      })
+      .catch(() => {
+        const adres = location.origin;
+        new QRCode(kutu, { text: adres + "/#gizli", width: 460, height: 460, colorDark: "#14243A", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+        kutu.setAttribute("role", "img");
+        kutu.setAttribute("aria-label", "Uygulamanın bağlantısını içeren QR kod");
+        yaz(adres.replace(/^https?:\/\//, ""), "İnternet üzerinden her yerden açılır; kurulum gerekmez.");
+      });
+  </script>
+</body>
+</html>

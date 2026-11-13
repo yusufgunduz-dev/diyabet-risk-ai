@@ -1,0 +1,171 @@
+{
+  "model_auc": 0.8094518685673626,
+  "ada_auc": 0.750848994202081,
+  "findrisc_auc": 0.7693178771429122,
+  "guven_araliklari": {
+    "model": [
+      0.7895345110986192,
+      0.8299535196825933
+    ],
+    "ada": [
+      0.7294415640630966,
+      0.7717576229901547
+    ],
+    "findrisc": [
+      0.7463052588157756,
+      0.7916275040336672
+    ],
+    "model_eksi_ada": [
+      0.040624323431951465,
+      0.07643221004503183
+    ],
+    "model_eksi_findrisc": [
+      0.024381404832853757,
+      0.056335109103288705
+    ]
+  },
+  "findrisc_esik": 15,
+  "findrisc_yakalanan": 218,
+  "findrisc_yanlis_alarm": 1222,
+  "model_findrisc_alarminda_yakalanan": 242,
+  "adalet": [
+    {
+      "boyut": "Cinsiyet",
+      "grup": "Erkek",
+      "n": 3163,
+      "hasta": 189,
+      "Yapay zekâ": 0.7754622958052683,
+      "ADA": 0.724127624598371,
+      "FINDRISC": 0.757532655145298
+    },
+    {
+      "boyut": "Cinsiyet",
+      "grup": "Kadın",
+      "n": 3487,
+      "hasta": 200,
+      "Yapay zekâ": 0.838464405232735,
+      "ADA": 0.7760054761180407,
+      "FINDRISC": 0.7892280194706419
+    },
+    {
+      "boyut": "Yaş",
+      "grup": "20-44",
+      "n": 2845,
+      "hasta": 75,
+      "Yapay zekâ": 0.8477641395908546,
+      "ADA": 0.8143417569193743,
+      "FINDRISC": 0.7679277978339349
+    },
+    {
+      "boyut": "Yaş",
+      "grup": "45-64",
+      "n": 2382,
+      "hasta": 184,
+      "Yapay zekâ": 0.7773989199667682,
+      "ADA": 0.6971666435890335,
+      "FINDRISC": 0.7439829192546583
+    },
+    {
+      "boyut": "Yaş",
+      "grup": "65+",
+      "n": 1423,
+      "hasta": 130,
+      "Yapay zekâ": 0.7467785115116903,
+      "ADA": 0.6294842048902375,
+      "FINDRISC": 0.6968915461954907
+    },
+    {
+      "boyut": "Gelir",
+      "grup": "Düşük",
+      "n": 1577,
+      "hasta": 102,
+      "Yapay zekâ": 0.8003157195081422,
+      "ADA": 0.7498105682951146,
+      "FINDRISC": 0.7494449983383183
+    },
+    {
+      "boyut": "Gelir",
+      "grup": "Orta",
+      "n": 2238,
+      "hasta": 139,
+      "Yapay zekâ": 0.8005833541837326,
+      "ADA": 0.7290796233903777,
+      "FINDRISC": 0.7621734913165228
+    },
+    {
+      "boyut": "Gelir",
+      "grup": "Yüksek",
+      "n": 1930,
+      "hasta": 100,
+      "Yapay zekâ": 0.8274726775956285,
+      "ADA": 0.7817650273224044,
+      "FINDRISC": 0.8053633879781421
+    },
+    {
+      "boyut": "Etnik köken",
+      "grup": "Beyaz",
+      "n": 2376,
+      "hasta": 94,
+      "Yapay zekâ": 0.8467796072873739,
+      "ADA": 0.7717917280474387,
+      "FINDRISC": 0.7907583866335988
+    },
+    {
+      "boyut": "Etnik köken",
+      "grup": "Diğer / çok ırklı",
+      "n": 1122,
+      "hasta": 72,
+      "Yapay zekâ": 0.8169973544973544,
+      "ADA": 0.7520767195767195,
+      "FINDRISC": 0.7547619047619047
+    },
+    {
+      "boyut": "Etnik köken",
+      "grup": "Diğer Hispanik",
+      "n": 699,
+      "hasta": 54,
+      "Yapay zekâ": 0.8324432960091875,
+      "ADA": 0.7893339075509619,
+      "FINDRISC": 0.80297157622739
+    },
+    {
+      "boyut": "Etnik köken",
+      "grup": "Meksika kökenli",
+      "n": 773,
+      "hasta": 56,
+      "Yapay zekâ": 0.8137577206614863,
+      "ADA": 0.7406978481769276,
+      "FINDRISC": 0.7576085873680016
+    },
+    {
+      "boyut": "Etnik köken",
+      "grup": "Siyah",
+      "n": 1680,
+      "hasta": 113,
+      "Yapay zekâ": 0.7755928412896522,
+      "ADA": 0.7556827487279114,
+      "FINDRISC": 0.7632672769679958
+    }
+  ],
+  "cv_auc": 0.8116423883653008,
+  "C": 0.1,
+  "esik": 0.04316192865705929,
+  "ada_ozgulluk_egitim": 0.6126427179058758,
+  "test_n": 6650,
+  "test_hasta": 389,
+  "ada_yakalanan": 322,
+  "ada_yanlis_alarm": 2700,
+  "model_esit_alarmda_yakalanan": 336,
+  "model_yakalanan": 342,
+  "model_yanlis_alarm": 2891,
+  "taban_oran": 0.05288144533825662,
+  "turkiye": {
+    "kaynak": "IDF Diyabet Atlası, Türkiye, 2024",
+    "gizli_oran": 0.08132051382266342,
+    "tanisiz_payi": 0.454998906603076,
+    "tanisiz_kisi_bin": 4369.4,
+    "katsayi": 1.5853936829603337,
+    "esik": 0.0667422902519543,
+    "test_auc": 0.8094518685673626
+  }
+}

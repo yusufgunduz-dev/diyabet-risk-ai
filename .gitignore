@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+backend/data/
+backend/models/bolunmus_veri.joblib
+araclar/*.exe
+frontend/demo/
+netlify_site_yukle.zip

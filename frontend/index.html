@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diyabet Risk Analizi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+  <header class="ust">
+    <div class="ust-ic">
+      <div class="marka">
+        <span class="marka-isaret" aria-hidden="true"></span>
+        <span class="marka-ad">Diyabet Risk Analizi</span>
+        <span class="marka-alt">Makine Öğrenmesi Dönem Projesi</span>
+      </div>
+      <nav class="sekmeler" role="tablist">
+        <button class="sekme aktif" data-sayfa="test" role="tab">Risk değerlendirmesi</button>
+        <button class="sekme" data-sayfa="gizli" role="tab">Klinik karşılaştırma</button>
+        <button class="sekme" data-sayfa="lab" role="tab">Model raporu</button>
+        <button class="sekme" data-sayfa="proje" role="tab">Metodoloji</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. RİSK DEĞERLENDİRMESİ (BRFSS) -->
+    <section id="test" class="sayfa aktif">
+      <div class="sayfa-bas">
+        <div>
+          <span class="ust-etiket">CDC BRFSS 2015 · 229.474 kişi</span>
+          <h1>Diyabet risk değerlendirmesi</h1>
+          <p>17 soruluk anket yanıtlarından diyabet veya prediyabet olasılığını tahmin eder ve tahmine en çok katkı yapan faktörleri gösterir.</p>
+        </div>
+        <div class="ornekler">
+          <span>Örnek profil:</span>
+          <button class="btn-ikincil" data-ornek="saglikli">Düşük risk</button>
+          <button class="btn-ikincil" data-ornek="orta">Orta risk</button>
+          <button class="btn-ikincil" data-ornek="riskli">Yüksek risk</button>
+        </div>
+      </div>
+
+      <div class="duzen">
+        <form id="form" class="panel" novalidate></form>
+
+        <aside class="panel yapiskan" id="sonuc" aria-live="polite">
+          <div class="panel-bas"><h2>Sonuç</h2><span class="not">XGBoost · izotonik kalibrasyon</span></div>
+          <div class="bos-durum" id="sonuc-bos">Formu doldurup “Hesapla”yı seçin.</div>
+          <div class="panel-ic" id="sonuc-dolu" hidden>
+            <div class="deger-blok"><span class="deger-buyuk" id="yuzde">0</span><span class="deger-birim">% olasılık</span></div>
+            <div class="durum" id="seviye"></div>
+            <div class="olcek">
+              <div class="olcek-cubuk"><div class="olcek-dolu" id="olcek-dolu"></div><div class="olcek-isaret" id="olcek-ort" title="Nüfus ortalaması"></div></div>
+              <div class="olcek-etiket"><span>%0</span><span id="olcek-ort-etiket"></span><span>%60+</span></div>
+            </div>
+            <p class="bilgi" id="kat"></p>
+            <div id="tarama"></div>
+
+            <div class="alt-baslik">Tahmine katkı (SHAP)</div>
+            <div id="faktorler" class="faktorler"></div>
+            <div class="lejant"><span><i style="background:var(--risk)"></i>Riski artırır</span><span><i style="background:var(--iyi)"></i>Riski azaltır</span></div>
+
+            <div id="senaryo-kutu" hidden>
+              <div class="alt-baslik">Değiştirilebilir faktörler</div>
+              <table><tbody id="senaryolar"></tbody></table>
+            </div>
+            <p class="not-metni">Bu araç bir ders projesidir ve tıbbi tanı koymaz. Sağlık kararları için hekiminize danışın.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 2. KLİNİK KARŞILAŞTIRMA (NHANES) -->
+    <section id="gizli" class="sayfa">
+      <div class="sayfa-bas">
+        <div>
+          <span class="ust-etiket">CDC NHANES 2007–2020 · 29.399 kişi</span>
+          <h1>Teşhis edilmemiş diyabet: model ve klinik testler</h1>
+          <p>Kan tahlili gerektirmeden, henüz tanı almamış diyabeti tahmin eden model; klinikte kullanılan ADA Diyabet Risk Testi ve FINDRISC ile aynı kişi üzerinde karşılaştırılır.</p>
+        </div>
+        <div class="ornekler">
+          <span>Örnek profil:</span>
+          <button class="btn-ikincil" data-gornek="dusuk">Düşük risk</button>
+          <button class="btn-ikincil" data-gornek="fark">Testlerin ayrıştığı profil</button>
+          <button class="btn-ikincil" data-gornek="yuksek">Yüksek risk</button>
+        </div>
+      </div>
+
+      <div class="panel" id="yaris-tablo-kap">
+        <div class="panel-bas"><h2>Doğrulama sonuçları</h2><span class="not" id="yaris-not"></span></div>
+        <div class="tablo-kap"><table id="yaris-tablo"></table></div>
+      </div>
+
+      <div class="duzen genis bolum">
+        <form id="gform" class="panel" novalidate></form>
+        <aside class="yapiskan" aria-live="polite">
+          <div class="panel bos-durum" id="gsonuc-bos">Formu doldurup “Karşılaştır”ı seçin.</div>
+          <div class="rakipler" id="gsonuc-dolu" hidden>
+            <div class="panel rakip ana">
+              <div class="panel-bas"><h3>Model</h3><span class="tip">Lojistik regresyon · 23 soru · Türkiye kalibrasyonu</span></div>
+              <div class="panel-ic">
+                <div class="deger-blok"><span class="deger-buyuk" id="ai-yuzde">0</span><span class="deger-birim">% olasılık</span></div>
+                <div class="durum" id="ai-karar"></div>
+                <p class="bilgi" id="ai-kat"></p>
+                <div class="alt-baslik">Tahmine katkı</div>
+                <div id="ai-faktorler" class="faktorler"></div>
+              </div>
+            </div>
+            <div class="panel rakip">
+              <div class="panel-bas"><h3>FINDRISC</h3><span class="tip">8 soru · eşik ≥ 15</span></div>
+              <div class="panel-ic">
+                <div class="deger-blok"><span class="deger-buyuk" id="fin-puan">0</span><span class="deger-birim">/ 26 puan</span></div>
+                <div class="durum" id="fin-karar"></div>
+                <table class="satir-puan"><tbody id="fin-maddeler"></tbody></table>
+              </div>
+            </div>
+            <div class="panel rakip">
+              <div class="panel-bas"><h3>ADA Diyabet Risk Testi</h3><span class="tip">7 soru · eşik ≥ 5</span></div>
+              <div class="panel-ic">
+                <div class="deger-blok"><span class="deger-buyuk" id="ada-puan">0</span><span class="deger-birim">/ 11 puan</span></div>
+                <div class="durum" id="ada-karar"></div>
+                <table class="satir-puan"><tbody id="ada-maddeler"></tbody></table>
+              </div>
+            </div>
+            <p class="not-metni">Kesin tanı için açlık kan şekeri veya HbA1c tahlili gerekir. FINDRISC'te sebze-meyve maddesi NHANES'te bulunmadığı için hesaplanmamıştır.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 3. MODEL RAPORU -->
+    <section id="lab" class="sayfa">
+      <div class="sayfa-bas">
+        <div>
+          <span class="ust-etiket">Değerlendirme</span>
+          <h1>Model raporu</h1>
+          <p>Tüm modeller çapraz doğrulama ile ayarlandı ve eğitimde görülmemiş verilerde ölçüldü.</p>
+        </div>
+      </div>
+      <div class="istatistikler" id="kpiler"></div>
+
+      <div class="bolum">
+        <h2>1. BRFSS: model karşılaştırması</h2>
+        <p class="aciklama">Test seti, 45.895 kişi. ROC-AUC'ye göre sıralıdır; CV AUC 5-katlı çapraz doğrulama ortalamasıdır (sinir ağı için doğrulama seti). <span id="sosyo-not"></span></p>
+        <div class="panel"><div class="tablo-kap"><table id="tablo"></table></div></div>
+      </div>
+
+      <div class="bolum">
+        <h2>2. NHANES: geliştirme adaylarının elenmesi</h2>
+        <p class="aciklama" id="eleme-kural"></p>
+        <div class="panel"><div class="tablo-kap"><table id="eleme-tablo"></table></div></div>
+      </div>
+
+      <div class="bolum">
+        <h2>3. NHANES: alt gruplarda başarı</h2>
+        <p class="aciklama">2017–20 test dönemi. Her alt grupta model ve iki klinik testin ROC-AUC değerleri.</p>
+        <div class="panel"><div class="tablo-kap"><table id="adalet-tablo"></table></div></div>
+      </div>
+
+      <div class="bolum" id="kume-kart">
+        <h2>4. BRFSS: K-Means risk profilleri</h2>
+        <div class="panel"><div class="tablo-kap"><table id="kumeler"></table></div></div>
+      </div>
+
+      <div class="bolum">
+        <h2>5. Grafikler</h2>
+        <div class="filtre" id="filtre"></div>
+        <div class="galeri" id="galeri"></div>
+      </div>
+    </section>
+
+    <!-- 4. METODOLOJİ -->
+    <section id="proje" class="sayfa">
+      <div class="sayfa-bas">
+        <div>
+          <span class="ust-etiket">Yöntem</span>
+          <h1>Metodoloji</h1>
+          <p>Veriden canlı uygulamaya kadar izlenen adımlar ve sonuçların sınırları.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <ol class="adimlar">
+          <li><b>Veri</b><span>CDC BRFSS 2015 (UCI #891), 253.680 kişi ve 21 özellik; 24.206 tekrar eden satır silindi. Modele katkısı ölçülemeyecek kadar küçük olan 4 sosyoekonomik soru (gelir, eğitim, sigorta, maddi engel) çıkarıldı; model 17 soru kullanır. CDC NHANES 2007–2020, 6 dönem, 29.399 yetişkin; anket, ölçüm, 24 saatlik beslenme kaydı ve kan tahlili.</span></li>
+          <li><b>Keşif ve hazırlık</b><span>Eksik ve aykırı değer analizi, ölçekleme, korelasyonlar. %14 diyabet oranındaki dengesizlik için class_weight ve SMOTE karşılaştırıldı.</span></li>
+          <li><b>Model karşılaştırması</b><span>Lojistik regresyon, KNN, SVM, karar ağacı, Random Forest, AdaBoost, XGBoost ve Keras sinir ağı; GridSearchCV ve 5-katlı Stratified K-Fold.</span></li>
+          <li><b>Değerlendirme</b><span>ROC-AUC, PR-AUC, duyarlılık, F1; 2000 tekrarlı bootstrap ile %95 güven aralıkları. Tarama eşiği F2 skoruyla seçildi.</span></li>
+          <li><b>Zamansal doğrulama</b><span>NHANES modelleri 2007–2016 ile eğitildi, eğitimde hiç görülmeyen 2017–2020 döneminde test edildi.</span></li>
+          <li><b>Klinik karşılaştırma</b><span>ADA Diyabet Risk Testi ve FINDRISC ile aynı kişiler üzerinde, aynı yanlış alarm sayısında karşılaştırma.</span></li>
+          <li><b>Eleme</b><span>XGBoost, spline, HbA1c regresyonu, topluluk, beslenme verisi ve iteratif doldurma denendi; hiçbiri kabul kuralını (+0,003 AUC, 5 katın 4'ünde üstünlük) geçemedi.</span></li>
+          <li><b>Veri sızıntısı kontrolü</b><span>“Sınırda diyabet” yanıtı verenlere bir sorunun hiç sorulmadığı ve modelin bu boşluğu ipucu olarak kullandığı tespit edilip giderildi.</span></li>
+          <li><b>Açıklanabilirlik</b><span>SHAP ve katsayı katkıları; K-Means, hiyerarşik kümeleme, PCA ve t-SNE.</span></li>
+          <li><b>Uygulama</b><span>FastAPI arka uç ve bu arayüz; tahminler her istekte canlı hesaplanır.</span></li>
+        </ol>
+      </div>
+      <div class="bolum">
+        <h2>Sınırlılıklar</h2>
+        <div class="panel panel-ic">
+          <ul class="liste">
+            <li>Her iki veri seti de ABD nüfusuna aittir; Türkiye için doğrulanmamıştır.</li>
+            <li>Yanıtlar kişilerin kendi beyanıdır ve ölçüm hatası içerebilir.</li>
+            <li>NHANES'te açlık kan şekeri yalnızca bir alt örneklemde ölçülmüştür; hedef tanım çoğunlukla HbA1c'ye dayanır.</li>
+            <li>Model erkeklerde, 65 yaş üstünde ve siyahi katılımcılarda diğer gruplara göre daha düşük başarı gösterir.</li>
+            <li>Modeller ilişki öğrenir, neden-sonuç değil; değiştirilebilir faktör senaryoları yön göstericidir.</li>
+            <li>NHANES örnekleme ağırlıkları kullanılmamıştır; sonuçlar nüfusu temsil eden tahminler değildir.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Veri kaynakları: CDC BRFSS 2015 (UCI Machine Learning Repository #891), CDC NHANES 2007–2020. Klinik testler: ADA Diyabet Risk Testi (Bang ve ark., 2009), FINDRISC (Lindström ve Tuomilehto, 2003).</footer>
+
+  <div class="lightbox" id="lightbox" hidden><img alt=""><p></p></div>
+  <script src="app.js?v=6"></script>
+  <script src="gizli.js?v=6"></script>
+</body>
+</html>

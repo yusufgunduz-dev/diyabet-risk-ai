@@ -1,0 +1,74 @@
+[23:28:25] Tekrar eden 24,206 satır silindi, kalan 229,474
+[23:28:25] Eğitim 160,631 | Doğrulama 22,948 | Test 45,895 | Diyabet oranı %15.3
+[23:28:25] Sosyoekonomik soru ablasyonu (XGBoost, doğrulama seti)
+[23:28:44]   21 soru AUC=0.8193  17 soru AUC=0.8189  fark=0.0004
+[23:28:44] Dengesizlik deneyi (Lojistik Regresyon ile)
+[23:28:45]   Hiçbir şey yapma           accuracy=0.850 recall=0.149 f1=0.234
+[23:28:45]   class_weight='balanced'    accuracy=0.714 recall=0.762 f1=0.448
+[23:28:48]   SMOTE                      accuracy=0.715 recall=0.756 f1=0.448
+[23:28:49] Overfitting eğrisi (karar ağacı derinliği)
+[23:29:12] Lojistik Regresyon: GridSearchCV (5-katlı) başlıyor
+[23:29:24]   en iyi {'model__C': 0.01}  CV AUC=0.8065 ± 0.0058
+[23:29:25]   TEST: AUC=0.8097 recall=0.762 f1=0.449 (12 sn)
+[23:29:25] KNN: GridSearchCV (5-katlı) başlıyor
+[23:29:41]   en iyi {'model__n_neighbors': 125, 'model__weights': 'uniform'}  CV AUC=0.7916 ± 0.0079
+[23:29:58]   TEST: AUC=0.8014 recall=0.794 f1=0.430 (17 sn)
+[23:29:58] SVM (RBF çekirdek): GridSearchCV (5-katlı) başlıyor
+[23:31:01]   en iyi {'model__C': 0.3, 'model__gamma': 0.01}  CV AUC=0.7985 ± 0.0089
+[23:34:17]   TEST: AUC=0.8121 recall=0.808 f1=0.440 (90 sn)
+[23:34:17] Karar Ağacı: GridSearchCV (5-katlı) başlıyor
+[23:34:20]   en iyi {'max_depth': 8, 'min_samples_leaf': 100}  CV AUC=0.7919 ± 0.0062
+[23:34:21]   TEST: AUC=0.8062 recall=0.757 f1=0.446 (4 sn)
+[23:34:21] Random Forest: GridSearchCV (5-katlı) başlıyor
+[23:35:34]   en iyi {'max_depth': 16, 'min_samples_leaf': 20}  CV AUC=0.8087 ± 0.0070
+[23:36:01]   TEST: AUC=0.8156 recall=0.751 f1=0.457 (98 sn)
+[23:36:01] AdaBoost: GridSearchCV (5-katlı) başlıyor
+[23:36:36]   en iyi {'learning_rate': 0.5, 'n_estimators': 300}  CV AUC=0.8095 ± 0.0063
+[23:37:24]   TEST: AUC=0.8142 recall=0.770 f1=0.452 (79 sn)
+[23:37:24] XGBoost (Gradient Boosting): GridSearchCV (5-katlı) başlıyor
+[23:37:51]   en iyi {'learning_rate': 0.03, 'max_depth': 3, 'n_estimators': 300, 'subsample': 0.8}  CV AUC=0.8115 ± 0.0066
+[23:37:54]   TEST: AUC=0.8176 recall=0.790 f1=0.449 (30 sn)
+[23:37:54] Keras MLP eğitiliyor
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+[23:39:13]   TEST: AUC=0.8172 recall=0.819 (30 epoch)
+                      model  cv_auc  roc_auc  pr_auc  accuracy  recall  precision     f1  sure_sn
+XGBoost (Gradient Boosting)  0.8115   0.8176  0.4426    0.7036  0.7896     0.3137 0.4490     30.1
+Yapay Sinir Ağı (Keras MLP)  0.8188   0.8172  0.4416    0.6851  0.8186     0.3036 0.4429     78.5
+              Random Forest  0.8087   0.8156  0.4412    0.7265  0.7510     0.3279 0.4565     98.0
+                   AdaBoost  0.8095   0.8142  0.4326    0.7149  0.7701     0.3203 0.4524     79.1
+         SVM (RBF çekirdek)  0.7985   0.8121  0.4204    0.6859  0.8079     0.3026 0.4403     90.2
+         Lojistik Regresyon  0.8065   0.8097  0.4107    0.7137  0.7621     0.3180 0.4488     12.2
+                Karar Ağacı  0.7919   0.8062  0.4167    0.7121  0.7572     0.3159 0.4458      3.8
+                        KNN  0.7916   0.8014  0.4029    0.6778  0.7944     0.2947 0.4299     16.7
+[23:39:16] Uygulama modeli hazırlanıyor (XGBoost + izotonik kalibrasyon)
+[23:39:17]   eşik=0.105 (F2 ile seçildi) TEST recall=0.850 precision=0.290
+[23:39:18] Bitti. Model: backend/models/diyabet_modeli.joblib
+SHAP analizi...
+Kümeleme...
+  Küme 1: Genç, sağlığı iyi                        kişi %43  diyabet %4.5
+  Küme 0: Ortalama profil                          kişi %6  diyabet %4.9
+  Küme 2: İleri yaş, tansiyonlu                    kişi %35  diyabet %21.2
+  Küme 3: Sağlığı kötü, tansiyonlu, kilolu         kişi %16  diyabet %33.9
+t-SNE (3000 örnek)...
+Bitti.
+1) Veri miktarı deneyi
+      500 kişi -> AUC 0.7874
+    1,000 kişi -> AUC 0.7888
+    2,000 kişi -> AUC 0.8013
+    5,000 kişi -> AUC 0.8096
+   10,000 kişi -> AUC 0.8129
+   20,000 kişi -> AUC 0.8148
+   40,000 kişi -> AUC 0.8165
+   80,000 kişi -> AUC 0.8173
+  160,631 kişi -> AUC 0.8177
+2) Eğitim uzunluğu deneyi (ağaç sayısı)
+     50 ağaç -> AUC 0.8046 (0.6 sn)
+    100 ağaç -> AUC 0.8128 (0.7 sn)
+    200 ağaç -> AUC 0.8168 (1.4 sn)
+    300 ağaç -> AUC 0.8177 (3.1 sn)
+    600 ağaç -> AUC 0.8184 (3.9 sn)
+   1000 ağaç -> AUC 0.8186 (9.0 sn)
+   2000 ağaç -> AUC 0.8183 (21.8 sn)
+   3000 ağaç -> AUC 0.8178 (36.6 sn)
+Kaydedildi: .\backend\reports\figures\19_ogrenme_egrisi.png
+CIKIS: 0

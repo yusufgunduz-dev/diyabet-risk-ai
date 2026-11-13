@@ -1,0 +1,258 @@
+{
+  "tani_konmamis_diyabet": {
+    "egitim_n": 22749,
+    "egitim_pozitif": 1203,
+    "test_n": 6650,
+    "test_pozitif": 389,
+    "ozet": {
+      "ADA Risk Testi (doktor testi)": {
+        "auc": 0.750848994202081,
+        "auc_alt": 0.7294415640630966,
+        "auc_ust": 0.7717576229901547,
+        "pr_auc": 0.12718207762849731
+      },
+      "ADA'nın 7 sorusu + ML": {
+        "auc": 0.7594487686248039,
+        "auc_alt": 0.7391283302040192,
+        "auc_ust": 0.779461243767546,
+        "pr_auc": 0.14432634836743616,
+        "ada_fark": 0.008599774422722972,
+        "ada_fark_alt": -0.0008661618699537826,
+        "ada_fark_ust": 0.017892369449141923,
+        "ada_ozgullugunde_duyarlilik": 0.8071979434447301
+      },
+      "Tüm anket soruları + ML": {
+        "auc": 0.8185991626459796,
+        "auc_alt": 0.7997106523762252,
+        "auc_ust": 0.8372464540965041,
+        "pr_auc": 0.20765477687044706,
+        "ada_fark": 0.0677501684438987,
+        "ada_fark_alt": 0.051364465727108746,
+        "ada_fark_ust": 0.08479506483417604,
+        "ada_ozgullugunde_duyarlilik": 0.897172236503856
+      },
+      "Anket + ölçümler + ML": {
+        "auc": 0.8195644560175633,
+        "auc_alt": 0.8006341749935271,
+        "auc_ust": 0.8382355028455503,
+        "pr_auc": 0.211050244296146,
+        "ada_fark": 0.06871546181548238,
+        "ada_fark_alt": 0.05079337822496516,
+        "ada_fark_ust": 0.08649425968816782,
+        "ada_ozgullugunde_duyarlilik": 0.8920308483290489
+      },
+      "Şeker geçmişi sorusu olmadan": {
+        "auc": 0.7764966050496626,
+        "auc_alt": 0.7575596249113015,
+        "auc_ust": 0.7950212103164611,
+        "pr_auc": 0.15553045055276316,
+        "ada_fark": 0.025647610847581603,
+        "ada_fark_alt": 0.011289280932372825,
+        "ada_fark_ust": 0.04085678073555861,
+        "ada_ozgullugunde_duyarlilik": 0.8637532133676092
+      },
+      "En iyi model: Lojistik Regresyon": {
+        "auc": 0.818478039062561,
+        "auc_alt": 0.8002251084466853,
+        "auc_ust": 0.8372365445398311,
+        "pr_auc": 0.20542347747242054,
+        "ada_fark": 0.06762904486048005,
+        "ada_fark_alt": 0.049706326965343446,
+        "ada_fark_ust": 0.08595364455540727,
+        "ada_ozgullugunde_duyarlilik": 0.897172236503856
+      }
+    },
+    "cv_auc": {
+      "ADA'nın 7 sorusu + ML": 0.7737973856346836,
+      "Tüm anket soruları + ML": 0.8133303903052544,
+      "Anket + ölçümler + ML": 0.8169879010873625,
+      "Şeker geçmişi sorusu olmadan": 0.7902073188318647
+    },
+    "yaris": {
+      "Lojistik Regresyon": {
+        "cv_auc": 0.8190485226581586,
+        "test_auc": 0.818478039062561,
+        "test_pr_auc": 0.20542347747242054
+      },
+      "Random Forest": {
+        "cv_auc": 0.8128168585430686,
+        "test_auc": 0.8150274539945941,
+        "test_pr_auc": 0.20596333523088406
+      },
+      "HistGradientBoosting": {
+        "cv_auc": 0.8098275857588936,
+        "test_auc": 0.8173637020951096,
+        "test_pr_auc": 0.21535350490137345
+      },
+      "XGBoost": {
+        "cv_auc": 0.8169879010873625,
+        "test_auc": 0.8195644560175633,
+        "test_pr_auc": 0.211050244296146
+      },
+      "Yapay Sinir Ağı (MLP)": {
+        "cv_auc": 0.7673044341397447,
+        "test_auc": 0.708293762874513,
+        "test_pr_auc": 0.14971933849953112
+      }
+    },
+    "parametreler": {
+      "Lojistik Regresyon": {
+        "model__C": "0.01"
+      },
+      "Random Forest": {
+        "model__max_depth": "None",
+        "model__min_samples_leaf": "10"
+      },
+      "HistGradientBoosting": {
+        "learning_rate": "0.08",
+        "max_depth": "3",
+        "max_iter": "300"
+      },
+      "XGBoost": {
+        "colsample_bytree": "0.8",
+        "learning_rate": "0.05",
+        "max_depth": "2",
+        "n_estimators": "300",
+        "subsample": "0.8"
+      },
+      "Yapay Sinir Ağı (MLP)": {
+        "model__alpha": "0.1"
+      }
+    },
+    "en_iyi_model": "Lojistik Regresyon",
+    "ada_kural": {
+      "duyarlilik": 0.8277634961439588,
+      "ozgulluk": 0.5687589841878294,
+      "yakalanan": 322
+    },
+    "model_ayni_ozgullukte_yakalanan": 349
+  },
+  "disglisemi": {
+    "egitim_n": 22749,
+    "egitim_pozitif": 10187,
+    "test_n": 6650,
+    "test_pozitif": 3348,
+    "ozet": {
+      "ADA Risk Testi (doktor testi)": {
+        "auc": 0.7132113099696286,
+        "auc_alt": 0.7007209707799456,
+        "auc_ust": 0.7252694495772473,
+        "pr_auc": 0.6703265488681319
+      },
+      "ADA'nın 7 sorusu + ML": {
+        "auc": 0.7236093200818879,
+        "auc_alt": 0.7113705175928126,
+        "auc_ust": 0.7354307281543191,
+        "pr_auc": 0.6900202728128852,
+        "ada_fark": 0.010398010112259382,
+        "ada_fark_alt": 0.005728450871187329,
+        "ada_fark_ust": 0.015337762867138867,
+        "ada_ozgullugunde_duyarlilik": 0.6140979689366786
+      },
+      "Tüm anket soruları + ML": {
+        "auc": 0.7500161916278248,
+        "auc_alt": 0.738279356186474,
+        "auc_ust": 0.760966472043076,
+        "pr_auc": 0.7349429451779528,
+        "ada_fark": 0.03680488165819629,
+        "ada_fark_alt": 0.029926801692447567,
+        "ada_fark_ust": 0.04399160214859305,
+        "ada_ozgullugunde_duyarlilik": 0.6612903225806451
+      },
+      "Anket + ölçümler + ML": {
+        "auc": 0.749093042701755,
+        "auc_alt": 0.7372399619152777,
+        "auc_ust": 0.7599729767499731,
+        "pr_auc": 0.735644457077635,
+        "ada_fark": 0.03588173273212647,
+        "ada_fark_alt": 0.02852146632233764,
+        "ada_fark_ust": 0.04322518546847101,
+        "ada_ozgullugunde_duyarlilik": 0.6574074074074074
+      },
+      "Şeker geçmişi sorusu olmadan": {
+        "auc": 0.7370851415492004,
+        "auc_alt": 0.7248762823828876,
+        "auc_ust": 0.7484389361713665,
+        "pr_auc": 0.705599366959383,
+        "ada_fark": 0.02387383157957179,
+        "ada_fark_alt": 0.01702145217600127,
+        "ada_fark_ust": 0.031017666569032497,
+        "ada_ozgullugunde_duyarlilik": 0.6403823178016727
+      },
+      "En iyi model: XGBoost": {
+        "auc": 0.749093042701755,
+        "auc_alt": 0.7372399619152777,
+        "auc_ust": 0.7599729767499731,
+        "pr_auc": 0.735644457077635,
+        "ada_fark": 0.03588173273212647,
+        "ada_fark_alt": 0.02852146632233764,
+        "ada_fark_ust": 0.04322518546847101,
+        "ada_ozgullugunde_duyarlilik": 0.6574074074074074
+      }
+    },
+    "cv_auc": {
+      "ADA'nın 7 sorusu + ML": 0.741666348198623,
+      "Tüm anket soruları + ML": 0.7598441977652846,
+      "Anket + ölçümler + ML": 0.7613505943759531,
+      "Şeker geçmişi sorusu olmadan": 0.75620378637679
+    },
+    "yaris": {
+      "Lojistik Regresyon": {
+        "cv_auc": 0.7579143143869154,
+        "test_auc": 0.7484954449965879,
+        "test_pr_auc": 0.7311704855571072
+      },
+      "Random Forest": {
+        "cv_auc": 0.7559496095937297,
+        "test_auc": 0.743670520816825,
+        "test_pr_auc": 0.7300592809959203
+      },
+      "HistGradientBoosting": {
+        "cv_auc": 0.7600259629875188,
+        "test_auc": 0.7460978176942109,
+        "test_pr_auc": 0.7324472666173084
+      },
+      "XGBoost": {
+        "cv_auc": 0.7613505943759531,
+        "test_auc": 0.749093042701755,
+        "test_pr_auc": 0.735644457077635
+      },
+      "Yapay Sinir Ağı (MLP)": {
+        "cv_auc": 0.755920866320657,
+        "test_auc": 0.7474013794181436,
+        "test_pr_auc": 0.7331115707040824
+      }
+    },
+    "parametreler": {
+      "Lojistik Regresyon": {
+        "model__C": "0.01"
+      },
+      "Random Forest": {
+        "model__max_depth": "None",
+        "model__min_samples_leaf": "10"
+      },
+      "HistGradientBoosting": {
+        "learning_rate": "0.03",
+        "max_depth": "3",
+        "max_iter": "300"
+      },
+      "XGBoost": {
+        "colsample_bytree": "0.8",
+        "learning_rate": "0.02",
+        "max_depth": "3",
+        "n_estimators": "600",
+        "subsample": "0.8"
+      },
+      "Yapay Sinir Ağı (MLP)": {
+        "model__alpha": "0.1"
+      }
+    },
+    "en_iyi_model": "XGBoost",
+    "ada_kural": {
+      "duyarlilik": 0.6090203106332138,
+      "ozgulluk": 0.7023016353725016,
+      "yakalanan": 2039
+    },
+    "model_ayni_ozgullukte_yakalanan": 2201
+  }
+}
